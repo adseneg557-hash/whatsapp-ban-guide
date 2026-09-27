@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ur-Latn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Number Ban Ho Gaya? — Recovery Guide</title>
+<style>
+:root{
+  --ink:#0f1e1c;
+  --paper:#f6f4ee;
+  --leaf:#1f7a5c;
+  --leaf-deep:#134a38;
+  --amber:#c8752b;
+  --line:#d8d2c2;
+  color-scheme: light;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family: 'Iowan Old Style','Palatino Linotype',Georgia,serif;
+  line-height:1.55;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+.wrap{max-width:720px;margin:0 auto;padding:0 24px;}
+
+header.hero{
+  border-bottom:2px solid var(--ink);
+  padding:56px 0 40px;
+}
+.mark{
+  display:inline-block;
+  font-family:-apple-system,'Segoe UI',sans-serif;
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:.02em;
+  background:var(--leaf);
+  color:#fff;
+  padding:4px 10px;
+  border-radius:3px;
+  margin-bottom:22px;
+}
+h1{
+  font-size:clamp(2rem,6vw,2.9rem);
+  line-height:1.1;
+  font-weight:600;
+  max-width:14ch;
+}
+.hero p.lede{
+  font-family:-apple-system,'Segoe UI',sans-serif;
+  font-size:1.05rem;
+  color:#3a4a45;
+  max-width:52ch;
+  margin-top:18px;
+}
+
+section{padding:40px 0;border-bottom:1px solid var(--line);}
+section:last-of-type{border-bottom:none;}
+
+h2{
+  font-size:1.5rem;
+  font-weight:600;
+  margin-bottom:22px;
+  color:var(--leaf-deep);
+}
+
+.reasons{list-style:none;display:grid;gap:14px;}
+.reasons li{
+  border-left:3px solid var(--amber);
+  padding:6px 0 6px 16px;
+  font-family:-apple-system,'Segoe UI',sans-serif;
+  font-size:.98rem;
+}
+.reasons li b{display:block;font-family:inherit;font-weight:600;color:var(--ink);margin-bottom:2px;}
+
+.steps{counter-reset:step;list-style:none;display:grid;gap:22px;}
+.steps li{
+  display:grid;
+  grid-template-columns:36px 1fr;
+  gap:14px;
+}
+.steps li::before{
+  counter-increment:step;
+  content:counter(step);
+  font-family:-apple-system,'Segoe UI',sans-serif;
+  font-weight:700;
+  font-size:1.1rem;
+  color:#fff;
+  background:var(--leaf);
+  width:36px;height:36px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.steps h3{font-size:1.05rem;font-weight:600;margin-bottom:4px;}
+.steps p{font-family:-apple-system,'Segoe UI',sans-serif;font-size:.95rem;color:#3a4a45;}
+.steps code{
+  background:#eae6d8;
+  padding:2px 7px;
+  border-radius:4px;
+  font-family:ui-monospace,Menlo,monospace;
+  font-size:.85rem;
+}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media(max-width:560px){.split{grid-template-columns:1fr;}}
+.card{
+  border:1.5px solid var(--ink);
+  padding:20px;
+  border-radius:4px;
+}
+.card.no{border-color:#a33;}
+.card h3{
+  font-family:-apple-system,'Segoe UI',sans-serif;
+  font-size:.85rem;
+  font-weight:700;
+  text-transform:none;
+  margin-bottom:12px;
+}
+.card ul{padding-left:18px;font-family:-apple-system,'Segoe UI',sans-serif;font-size:.92rem;color:#333;display:grid;gap:8px;}
+
+.faq details{
+  border-bottom:1px solid var(--line);
+  padding:14px 0;
+}
+.faq summary{
+  cursor:pointer;
+  font-weight:600;
+  font-family:-apple-system,'Segoe UI',sans-serif;
+  font-size:1rem;
+  list-style:none;
+}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary::before{content:"+ ";color:var(--leaf);font-weight:700;}
+.faq details[open] summary::before{content:"– ";}
+.faq p{
+  font-family:-apple-system,'Segoe UI',sans-serif;
+  font-size:.93rem;
+  color:#3a4a45;
+  margin-top:8px;
+  padding-left:18px;
+}
+
+footer{padding:36px 0 60px;font-family:-apple-system,'Segoe UI',sans-serif;font-size:.82rem;color:#6b7570;}
+
+.chatbox{
+  font-family:-apple-system,'Segoe UI',sans-serif;
+  border:1.5px solid var(--ink);
+  border-radius:6px;
+  overflow:hidden;
+}
+.chat-log{
+  max-height:340px;
+  overflow-y:auto;
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  background:#fff;
+}
+.msg{
+  max-width:82%;
+  padding:9px 13px;
+  border-radius:10px;
+  font-size:.93rem;
+  line-height:1.4;
+  white-space:pre-wrap;
+}
+.msg.bot{background:#eef4f0;align-self:flex-start;border:1px solid var(--line);}
+.msg.user{background:var(--leaf);color:#fff;align-self:flex-end;}
+.msg.pending{color:#7a8580;font-style:italic;}
+.chat-input-row{
+  display:flex;
+  border-top:1px solid var(--line);
+  background:var(--paper);
+}
+.chat-input-row input{
+  flex:1;
+  border:none;
+  background:transparent;
+  padding:13px 14px;
+  font-size:.95rem;
+  font-family:inherit;
+  outline:none;
+}
+.chat-input-row button{
+  border:none;
+  background:var(--leaf);
+  color:#fff;
+  font-weight:600;
+  padding:0 20px;
+  font-family:inherit;
+  font-size:.9rem;
+  cursor:pointer;
+}
+.chat-input-row button:disabled{opacity:.5;cursor:default;}
+.chat-note{font-size:.78rem;color:#7a8580;margin-top:8px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <span class="mark">WhatsApp Number Ban</span>
+  <p style="font-family:-apple-system,'Segoe UI',sans-serif;font-size:.8rem;color:#6b7570;margin-bottom:10px;">Developed by Hussain Bux Brohi</p>
+  <h1>Number ban ho gaya? Ghabraiye mat, ye asli raasta hai.</h1>
+  <p class="lede">Koi bhi third-party tool ya website aapka WhatsApp number technically unban nahi kar sakti — ye sirf WhatsApp/Meta khud kar sakte hain. Ye guide aapko wahi official tareeka batati hai jo kaam karta hai.</p>
+</header>
+
+<section>
+  <h2>Ban kyun hota hai?</h2>
+  <ul class="reasons">
+    <li><b>Bohot zyada log aapko block/report karein</b>Especially bulk messages ya unknown logon ko messages bhejne par.</li>
+    <li><b>Third-party ya modified apps ka istemal</b>GB WhatsApp, WhatsApp Plus jaisi apps use karne par account permanently ban ho sakta hai.</li>
+    <li><b>Automated ya bulk messaging</b>Ek hi message bohot logon ko baar baar bhejna spam count hota hai.</li>
+    <li><b>Naya number, purane ban se link</b>Agar wo number pehle kisi banned account se juda tha.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Unban karwane ke steps</h2>
+  <ol class="steps">
+    <li>
+      <div>
+        <h3>App khol kar review request karein</h3>
+        <p>Jab ban screen aaye, us par seedha <code>Request a review</code> ka button hota hai — usi se apeal karein, sabse fast tareeka yahi hai.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h3>Agar button na mile, email karein</h3>
+        <p>Apna number full country code ke saath (jaise +92...) likh kar <code>support@whatsapp.com</code> par email bhejein aur wajah puchein.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h3>Modified app hai to pehle uninstall karein</h3>
+        <p>GB WhatsApp ya similar app se ban hua hai to asli WhatsApp install karke hi review maango — warna dobara ban hoga.</p>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h3>Sabar rakhein</h3>
+        <p>Temporary ban khud hi kuch ghanton se lekar 2-3 din mein clear ho jata hai agar dobara spam-like activity na ho.</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section>
+  <h2>Kya karein, kya na karein</h2>
+  <div class="split">
+    <div class="card">
+      <h3>YE KAREIN</h3>
+      <ul>
+        <li>Sirf official WhatsApp app use karein</li>
+        <li>Review request ke baad 24–48 ghante wait karein</li>
+        <li>Sirf apne saved contacts ko message bhejein</li>
+      </ul>
+    </div>
+    <div class="card no">
+      <h3>YE NA KAREIN</h3>
+      <ul>
+        <li>"Unban" karne wali koi bhi paid website ya app use na karein — ye sab fraud hain</li>
+        <li>Bar bar naye accounts try na karein, isse number permanently flag ho sakta hai</li>
+        <li>Unknown logon ko bulk messages na bhejein</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <h2>Aam sawaal</h2>
+  <details>
+    <summary>Kya koi website sach mein number unban kar sakti hai?</summary>
+    <p>Nahi. Ban WhatsApp ke apne servers par set hota hai; sirf wahi hata sakte hain. Jo site paisa lekar "unban" ka wada kare, wo scam hai.</p>
+  </details>
+  <details>
+    <summary>Review request ke baad kitna time lagta hai?</summary>
+    <p>Zyada tar cases mein kuch ghante se 24-48 ghante. Kabhi kabhi zyada bhi lag sakta hai — dobara request bar bar na bhejein.</p>
+  </details>
+  <details>
+    <summary>Permanent ban hat sakta hai?</summary>
+    <p>Bohot mushkil hai, khaas kar agar modified app ya spam ki wajah se hua ho. Phir bhi ek honest review request bhejna hi sahi tareeka hai.</p>
+  </details>
+</section>
+
+<section>
+  <h2>AI Support se baat karein</h2>
+  <div class="chatbox">
+    <div class="chat-log" id="chatLog">
+      <div class="msg bot">Assalam-o-Alaikum! Main is guide ka AI support hoon. WhatsApp ban, review request, ya modified apps ke baare mein jo bhi sawaal ho, poochein.</div>
+    </div>
+    <div class="chat-input-row">
+      <input id="chatInput" type="text" placeholder="Apna sawaal likhein..." />
+      <button id="chatSend">Bhejein</button>
+    </div>
+  </div>
+  <p class="chat-note">Ye AI sirf general maloomat deta hai — aapke account ka status nahi dekh sakta. Kisi bhi real review ke liye upar diye gaye steps follow karein.</p>
+</section>
+
+<section>
+  <h2>Zyada maloomat ke liye rabta karein</h2>
+  <div class="card" style="border-color:var(--leaf);">
+    <h3>CONTACT</h3>
+    <p style="font-family:-apple-system,'Segoe UI',sans-serif;font-size:1rem;">
+      WhatsApp par message karein: <a href="https://wa.me/923012050817" style="color:var(--leaf-deep);font-weight:600;text-decoration:none;">0301&nbsp;2050817</a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  Ye ek informational guide hai. WhatsApp ka koi bhi review process yahan se control nahi hota — sab kuch seedha WhatsApp/Meta ke through hi hota hai.
+</footer>
+
+</div>
+
+<script>
+(function(){
+  const log = document.getElementById('chatLog');
+  const input = document.getElementById('chatInput');
+  const sendBtn = document.getElementById('chatSend');
+  let sample = null;
+  let history = [];
+  let busy = false;
+
+  const SYSTEM_CONTEXT = "Tum ek WhatsApp number-ban recovery guide website ke AI support ho. Sirf Roman Urdu/Hindi mein, dost jaisi lekin madadgar tone mein jawab do. Tumhara scope: WhatsApp ban ke reasons, official review/appeal process (app ka Request a review button, ya support@whatsapp.com par email), modified apps (GB WhatsApp waghera) ke risks, aur sabar ka mashwara. Kabhi bhi ye mat kaho ke tum ya koi website technically number unban kar sakte ho — sirf WhatsApp/Meta hi kar sakte hain, aur koi bhi paid 'unban' service scam hai. Jawab chota aur seedha rakho.";
+
+  async function ensureSample(){
+    if (sample) return sample;
+    try{
+      sample = await claude.use("sample");
+    }catch(e){ sample = null; }
+    return sample;
+  }
+
+  function addMsg(text, who){
+    const d = document.createElement('div');
+    d.className = 'msg ' + who;
+    d.textContent = text;
+    log.appendChild(d);
+    log.scrollTop = log.scrollHeight;
+    return d;
+  }
+
+  async function send(){
+    const text = input.value.trim();
+    if (!text || busy) return;
+    busy = true;
+    sendBtn.disabled = true;
+    addMsg(text, 'user');
+    history.push({role:'user', content:text});
+    input.value = '';
+
+    const s = await ensureSample();
+    if (!s){
+      addMsg('Abhi AI support available nahi hai. Neeche diye WhatsApp number par rabta karein.', 'bot');
+      busy = false; sendBtn.disabled = false;
+      return;
+    }
+
+    const pending = addMsg('Likh raha hoon...', 'bot pending');
+    try{
+      const messages = [{role:'user', content: SYSTEM_CONTEXT + "\n\nUser ka sawaal: " + text}];
+      const res = await s(messages, {
+        onText: ({text: t}) => { pending.textContent = t; log.scrollTop = log.scrollHeight; }
+      });
+      pending.classList.remove('pending');
+      pending.textContent = res.text;
+      history.push({role:'assistant', content: res.text});
+    }catch(err){
+      pending.classList.remove('pending');
+      pending.textContent = 'Maazrat, jawab nahi de saka. Neeche diye WhatsApp number par rabta karein.';
+    }
+    busy = false;
+    sendBtn.disabled = false;
+  }
+
+  sendBtn.addEventListener('click', send);
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') send(); });
+})();
+</script>
+</body>
+</html>
