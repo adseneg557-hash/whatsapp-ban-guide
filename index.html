@@ -288,16 +288,11 @@ footer{padding:36px 0 60px;font-family:-apple-system,'Segoe UI',sans-serif;font-
 
 <section>
   <h2>AI Support se baat karein</h2>
-  <div class="chatbox">
-    <div class="chat-log" id="chatLog">
-      <div class="msg bot">Assalam-o-Alaikum! Main is guide ka AI support hoon. WhatsApp ban, review request, ya modified apps ke baare mein jo bhi sawaal ho, poochein.</div>
-    </div>
-    <div class="chat-input-row">
-      <input id="chatInput" type="text" placeholder="Apna sawaal likhein..." />
-      <button id="chatSend">Bhejein</button>
-    </div>
+  <div class="card" style="border-color:var(--leaf);">
+    <p style="font-family:-apple-system,'Segoe UI',sans-serif;font-size:.95rem;margin-bottom:14px;">WhatsApp ban ke baare mein koi bhi sawaal ho, hamare AI support se poochein.</p>
+    <a href="https://claude.ai/artifact/LpinUxjhKaL8TML7KpScUv" target="_blank" rel="noopener" style="display:inline-block;background:var(--leaf);color:#fff;font-family:-apple-system,'Segoe UI',sans-serif;font-weight:600;font-size:.95rem;padding:12px 22px;border-radius:4px;text-decoration:none;">AI Support kholein</a>
+    <p class="chat-note" style="margin-top:12px;">AI chat claude.ai par khulegi. Ye sirf general maloomat deta hai, aapke account ka status nahi dekh sakta.</p>
   </div>
-  <p class="chat-note">Ye AI sirf general maloomat deta hai — aapke account ka status nahi dekh sakta. Kisi bhi real review ke liye upar diye gaye steps follow karein.</p>
 </section>
 
 <section>
@@ -316,70 +311,5 @@ footer{padding:36px 0 60px;font-family:-apple-system,'Segoe UI',sans-serif;font-
 
 </div>
 
-<script>
-(function(){
-  const log = document.getElementById('chatLog');
-  const input = document.getElementById('chatInput');
-  const sendBtn = document.getElementById('chatSend');
-  let sample = null;
-  let history = [];
-  let busy = false;
-
-  const SYSTEM_CONTEXT = "Tum ek WhatsApp number-ban recovery guide website ke AI support ho. Sirf Roman Urdu/Hindi mein, dost jaisi lekin madadgar tone mein jawab do. Tumhara scope: WhatsApp ban ke reasons, official review/appeal process (app ka Request a review button, ya support@whatsapp.com par email), modified apps (GB WhatsApp waghera) ke risks, aur sabar ka mashwara. Kabhi bhi ye mat kaho ke tum ya koi website technically number unban kar sakte ho — sirf WhatsApp/Meta hi kar sakte hain, aur koi bhi paid 'unban' service scam hai. Jawab chota aur seedha rakho.";
-
-  async function ensureSample(){
-    if (sample) return sample;
-    try{
-      sample = await claude.use("sample");
-    }catch(e){ sample = null; }
-    return sample;
-  }
-
-  function addMsg(text, who){
-    const d = document.createElement('div');
-    d.className = 'msg ' + who;
-    d.textContent = text;
-    log.appendChild(d);
-    log.scrollTop = log.scrollHeight;
-    return d;
-  }
-
-  async function send(){
-    const text = input.value.trim();
-    if (!text || busy) return;
-    busy = true;
-    sendBtn.disabled = true;
-    addMsg(text, 'user');
-    history.push({role:'user', content:text});
-    input.value = '';
-
-    const s = await ensureSample();
-    if (!s){
-      addMsg('Abhi AI support available nahi hai. Neeche diye WhatsApp number par rabta karein.', 'bot');
-      busy = false; sendBtn.disabled = false;
-      return;
-    }
-
-    const pending = addMsg('Likh raha hoon...', 'bot pending');
-    try{
-      const messages = [{role:'user', content: SYSTEM_CONTEXT + "\n\nUser ka sawaal: " + text}];
-      const res = await s(messages, {
-        onText: ({text: t}) => { pending.textContent = t; log.scrollTop = log.scrollHeight; }
-      });
-      pending.classList.remove('pending');
-      pending.textContent = res.text;
-      history.push({role:'assistant', content: res.text});
-    }catch(err){
-      pending.classList.remove('pending');
-      pending.textContent = 'Maazrat, jawab nahi de saka. Neeche diye WhatsApp number par rabta karein.';
-    }
-    busy = false;
-    sendBtn.disabled = false;
-  }
-
-  sendBtn.addEventListener('click', send);
-  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') send(); });
-})();
-</script>
 </body>
 </html>
